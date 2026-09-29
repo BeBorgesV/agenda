@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f4f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d121b" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Agenda">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+body{margin:0;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Agenda 2026.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: resumo da próxima avaliação no topo; abaixo, calendário mensal à esquerda e lista por semana à direita (empilha no celular). */
+:root{
+  --bg:#f2f4f8; --surface:#ffffff; --ink:#121827; --muted:#5a6377; --line:#dce1ea; --accent:#1d4ed8; --hol:#e9edf3; --warn:#c2410c;
+  --c-ENG4007:#d9480f; --c-ENG4501:#0b7a6e; --c-INF1022:#6d44e0; --c-INF1636:#c2255c; --c-INF1640:#1971c2; --c-MAT4174:#4f8a0b;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d121b; --surface:#151c29; --ink:#e7ebf3; --muted:#98a2b6; --line:#263043; --accent:#7aa2ff; --hol:#1a2231; --warn:#ff8a4c;
+  --c-ENG4007:#ff8a4c; --c-ENG4501:#3dd6bf; --c-INF1022:#a78bfa; --c-INF1636:#f06595; --c-INF1640:#5eb2f7; --c-MAT4174:#9ad83a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d121b; --surface:#151c29; --ink:#e7ebf3; --muted:#98a2b6; --line:#263043; --accent:#7aa2ff; --hol:#1a2231; --warn:#ff8a4c;
+  --c-ENG4007:#ff8a4c; --c-ENG4501:#3dd6bf; --c-INF1022:#a78bfa; --c-INF1636:#f06595; --c-INF1640:#5eb2f7; --c-MAT4174:#9ad83a;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:24px 48px;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+header.top h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1.05}
+header.top p{margin:4px 0 0;color:var(--muted)}
+
+/* resumo */
+.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px}
+.next{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.next .big{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.next .count{font-family:var(--f-display);font-size:clamp(44px,7vw,68px);line-height:.9;letter-spacing:-.03em;color:var(--cc,var(--ink))}
+.next .count small{font-size:.32em;letter-spacing:0;color:var(--muted);margin-left:6px}
+.next h2{font-size:clamp(20px,2.6vw,26px)}
+.next .meta{color:var(--muted)}
+.soon{display:flex;flex-direction:column;gap:2px;min-width:0}
+.soon-row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line)}
+.soon-row:last-child{border-bottom:0}
+.soon-row .when{font-size:13px;color:var(--muted)}
+.soon-row .what{min-width:0;display:flex;flex-direction:column}
+.soon-row .st,.soon-row .sc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.soon-row .st{font-weight:600}
+.soon-row .sc{font-size:13px;color:var(--muted);display:block}
+.soon-row .sc .dot{display:inline-block;margin-right:6px;vertical-align:0}
+.rel{font-size:12px;color:var(--muted);white-space:nowrap}
+.rel.hot{color:var(--warn);font-weight:600}
+
+/* filtros */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fchip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:14px}
+.fchip[aria-pressed="false"]{opacity:.45}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--cc);flex:none}
+.toggle{margin-left:auto;display:inline-flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);cursor:pointer}
+
+/* principal */
+.main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.cal-head h3{font-size:20px;text-transform:capitalize}
+.navbtn{border:1px solid var(--line);background:transparent;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:16px}
+.navbtn:disabled{opacity:.3;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.wd{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding-bottom:4px}
+.day{min-height:64px;border-radius:8px;padding:5px;display:flex;flex-direction:column;gap:3px;background:transparent;border:1px solid transparent;text-align:left;cursor:pointer;min-width:0}
+.day:hover{border-color:var(--line)}
+.day.out{visibility:hidden}
+.day.hol{background:var(--hol)}
+.day.today{border-color:var(--accent)}
+.day.sel{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.day.past .num{color:var(--muted)}
+.num{font-size:12px;font-family:var(--f-mono)}
+.day.today .num{color:var(--accent);font-weight:600}
+.tags{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tag{font-size:10.5px;line-height:1.25;padding:1px 4px;border-radius:4px;background:color-mix(in srgb,var(--cc) 16%,transparent);color:var(--cc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.tag.lite{background:transparent;border:1px solid color-mix(in srgb,var(--cc) 45%,transparent);font-weight:500}
+.holname{font-size:10px;color:var(--muted);line-height:1.2}
+.daybox{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.daybox .empty{color:var(--muted);font-size:14px}
+
+/* lista */
+.week{display:flex;flex-direction:column;gap:6px}
+.week+.week{margin-top:18px}
+.week-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.week-h .lbl{font-weight:600;font-size:14px}
+.load{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.bars{display:flex;gap:3px}
+.bars i{width:8px;height:14px;border-radius:2px;background:var(--line)}
+.bars i.on{background:var(--muted)}
+.week.heavy .bars i.on{background:var(--warn)}
+.week.heavy .load{color:var(--warn);font-weight:600}
+.ev{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:start;padding:10px 4px;border-radius:8px}
+.ev.flash{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.ev .date{display:flex;flex-direction:column;line-height:1.15}
+.ev .date b{font-family:var(--f-mono);font-size:17px}
+.ev .date span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ev .body{min-width:0;display:flex;flex-direction:column;gap:3px}
+.ev .line1{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.ev .title{font-weight:600}
+.ev .sub{font-size:13px;color:var(--muted)}
+.ev .sub a{color:inherit}
+.kind{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;color:var(--cc);background:color-mix(in srgb,var(--cc) 15%,transparent)}
+.kind.soft{background:transparent;border:1px solid color-mix(in srgb,var(--cc) 40%,transparent)}
+.course{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.ev.done .title{text-decoration:line-through;color:var(--muted)}
+.ev.past{opacity:.55}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.chk input{width:16px;height:16px;accent-color:var(--accent)}
+
+/* rodapé */
+.lower{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.lower h3{font-size:18px;margin-bottom:10px}
+.lower ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.lower li{color:var(--ink)}
+.lower .muted{color:var(--muted);font-size:14px}
+.src{display:flex;flex-direction:column;gap:8px}
+.src a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
+.src a:hover span.t{text-decoration:underline}
+
+@media (max-width:860px){
+  .hero,.main,.lower{grid-template-columns:minmax(0,1fr)}
+  .toggle{margin-left:0}
+}
+@media (max-width:520px){
+  .wrap{padding-inline:16px}
+  .day{min-height:46px;padding:4px 3px}
+  .tag{font-size:0;padding:0;height:6px;border-radius:3px}
+  .holname{display:none}
+  .ev{grid-template-columns:50px minmax(0,1fr)}
+  .ev .chk{grid-column:2}
+}
+@media (prefers-reduced-motion:no-preference){.ev.flash{transition:background .6s}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">PUC-Rio · Engenharia de Computação</div>
+      <h1>Agenda 2026.2</h1>
+      <p>Provas, testes e entregas das 6 matérias, puxados do EAD e do calendário do CB/CTC. Conferido duas vezes nas fontes em <span class="mono">29/09/2026, 13h45</span>.</p>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Resumo">
+    <div class="next" id="next"></div>
+    <div class="next">
+      <div class="eyebrow">Próximos 14 dias</div>
+      <div class="soon" id="soon"></div>
+    </div>
+  </section>
+
+  <section class="filters" id="filters" aria-label="Filtrar matérias"></section>
+
+  <section class="main">
+    <div class="panel">
+      <div class="cal-head">
+        <button class="navbtn" id="prev" aria-label="Mês anterior">‹</button>
+        <h3 id="mlabel"></h3>
+        <button class="navbtn" id="nextm" aria-label="Próximo mês">›</button>
+      </div>
+      <div class="grid" id="cal"></div>
+      <div class="daybox" id="daybox"><div class="empty">Toque num dia para ver o que tem nele.</div></div>
+    </div>
+    <div class="panel" id="list"></div>
+  </section>
+
+  <section class="lower">
+    <div class="panel">
+      <h3>Sem data definida</h3>
+      <ul>
+        <li><b>Léxicos e Sintáticos – P1:</b> a data não está publicada no EAD (conferi fórum, calendário, slides e listas). A monitoria pré-P1 foi em 24/09 e a "Revisão P1" está nas listas de exercícios.</li>
+        <li><b>EDSS – entregas MATLAB:</b> saem toda semana e vencem na quinta às 23h59. O EAD só mostra a próxima quando o professor posta.</li>
+        <li><b>EDSS – testes:</b> o envio é pelo EAD e fecha à meia-noite do dia seguinte ao teste.</li>
+        <li><b>ProbEst – quizzes:</b> um quiz de 10 min por aula, no Moodle, valendo até 1 ponto extra no G. Sem segunda chamada.</li>
+        <li><b>POO – regras duras:</b> quem não mandou os nomes do grupo até 28/09 fica fora do trabalho. Faltar a uma arguição sem avisar antes zera o aluno.</li>
+</ul>
+    </div>
+    <div class="panel">
+      <h3>Fontes</h3>
+      <div class="src" id="sources"></div>
+      <p class="muted">A marcação de "feito" fica salva só neste navegador.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+const COURSES={
+  ENG4007:{name:"Mecânica dos Sólidos",detail:"turma 3VA · ter 07–09h",url:"https://ead.puc-rio.br/course/view.php?id=121212"},
+  ENG4501:{name:"ProbEst Computacional",detail:"turma 33D · provas do CB às 17h",url:"https://ead.puc-rio.br/course/view.php?id=119548"},
+  INF1022:{name:"Léxicos e Sintáticos",detail:"turma 3WA · critério 6 (G1, G2 e G3 se precisar)",url:"https://ead.puc-rio.br/course/view.php?id=118700"},
+  INF1636:{name:"Programação OO",detail:"turma 3WB · seg/qua 09–11h · L310 · nota = trabalho em grupo",url:"https://ead.puc-rio.br/course/view.php?id=121240"},
+  INF1640:{name:"Redes de Comunicação",detail:"turma 3WA · provas qui 11h · L154",url:"https://ead.puc-rio.br/course/view.php?id=121400"},
+  MAT4174:{name:"EDSS",detail:"turma 33A · no horário de aula",url:"https://ead.puc-rio.br/course/view.php?id=119896"}
+};
+const CB="https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx";
+const F_ENG4007="https://ead.puc-rio.br/mod/forum/discuss.php?d=120503";
+const F_REDES="https://ead.puc-rio.br/mod/forum/discuss.php?d=120492";
+const F_REDES2="https://ead.puc-rio.br/mod/forum/discuss.php?d=122577";
+const P_POO="https://ead.puc-rio.br/mod/resource/view.php?id=1442749";
+const P_PROB="https://ead.puc-rio.br/mod/resource/view.php?id=1435396";
+const P_POO_PROC="https://ead.puc-rio.br/mod/resource/view.php?id=1442768";
+const EDSS=COURSES.MAT4174.url;
+
+/* kind: prova | teste | entrega | apres | prep | aula */
+const EVENTS=[
+  // Mecânica dos Sólidos (3VA)
+  {d:"2026-09-01",c:"ENG4007",k:"prep",t:"Preparação da G1",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-09-08",c:"ENG4007",k:"prova",t:"G1",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-10-06",c:"ENG4007",k:"prep",t:"Preparação da G2",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-10-13",c:"ENG4007",k:"prova",t:"G2",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-11-10",c:"ENG4007",k:"prep",t:"Preparação da G3",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-11-17",c:"ENG4007",k:"prova",t:"G3",h:"07h–09h",src:F_ENG4007},
+  {d:"2026-12-01",c:"ENG4007",k:"prova",t:"G4",h:"07h–09h",src:F_ENG4007},
+  // ProbEst
+  {d:"2026-09-04",c:"ENG4501",k:"teste",t:"T1 (30% do G1)",h:"17h–18h50 · com computador",src:CB},
+  {d:"2026-09-18",c:"ENG4501",k:"prova",t:"P1 (70% do G1)",h:"17h–18h50",src:CB},
+  {d:"2026-10-09",c:"ENG4501",k:"teste",t:"T2 (30% do G2)",h:"17h–18h50 · com computador",src:CB},
+  {d:"2026-10-26",c:"ENG4501",k:"prova",t:"P2 (70% do G2)",h:"17h–18h50",src:CB},
+  {d:"2026-11-27",c:"ENG4501",k:"teste",t:"T3 (30% do G3)",h:"17h–18h50 · com computador",src:CB},
+  {d:"2026-11-30",c:"ENG4501",k:"prova",t:"P3 (70% do G3)",h:"17h–18h50",src:CB},
+  {d:"2026-12-10",c:"ENG4501",k:"prova",t:"PF / G4 (matéria toda)",h:"17h–18h50",src:CB},
+  // POO – trabalho Herdeiros de Khan (turma 3WB)
+  {d:"2026-09-28",c:"INF1636",k:"entrega",t:"Prazo: nomes do grupo enviados ao professor",h:"até o início da 1ª iteração · por e-mail",src:P_POO_PROC},
+  {d:"2026-09-28",c:"INF1636",k:"prep",t:"Início da 1ª iteração do trabalho",h:"Model + 8 testes JUnit",src:P_POO_PROC},
+  {d:"2026-10-11",c:"INF1636",k:"entrega",t:"Fim da 1ª iteração: ZIP no EAD",h:"até 23h59 · −1,0 por dia de atraso",src:P_POO_PROC},
+  {d:"2026-10-14",c:"INF1636",k:"apres",t:"Arguições da 1ª iteração",h:"grupo, 10–15 min, pelo Zoom",src:P_POO},
+  {d:"2026-10-19",c:"INF1636",k:"apres",t:"Arguições da 1ª iteração",h:"grupo, 10–15 min, pelo Zoom",src:P_POO},
+  {d:"2026-10-25",c:"INF1636",k:"entrega",t:"Fim da 2ª iteração: ZIP no EAD",h:"até 23h59 · −1,0 por dia de atraso",src:P_POO_PROC},
+  {d:"2026-10-28",c:"INF1636",k:"apres",t:"Arguições da 2ª iteração",h:"grupo, 10–15 min, pelo Zoom",src:P_POO},
+  {d:"2026-11-08",c:"INF1636",k:"entrega",t:"Fim da 3ª iteração: ZIP no EAD",h:"até 23h59 · −1,0 por dia de atraso",src:P_POO_PROC},
+  {d:"2026-11-11",c:"INF1636",k:"apres",t:"Arguições da 3ª iteração",h:"grupo, 10–15 min, pelo Zoom",src:P_POO},
+  {d:"2026-11-16",c:"INF1636",k:"apres",t:"Arguições da 3ª iteração",h:"grupo, 10–15 min, pelo Zoom",src:P_POO},
+  {d:"2026-11-22",c:"INF1636",k:"entrega",t:"Entrega final: ZIP + link do vídeo (até 30 min)",h:"até 23h59 · sem tolerância, atraso reprova",src:P_POO_PROC},
+  {d:"2026-11-23",c:"INF1636",k:"apres",t:"Apresentações dos trabalhos (até 09/12)",h:"09h–11h · L310",src:P_POO},
+  // Redes
+  {d:"2026-09-29",c:"INF1640",k:"aula",t:"Aula de dúvidas para a P1",h:"horário de aula",src:F_REDES2},
+  {d:"2026-10-01",c:"INF1640",k:"prova",t:"P1",h:"11h · L154",src:F_REDES},
+  {d:"2026-11-26",c:"INF1640",k:"prova",t:"P2",h:"11h · L154",src:F_REDES},
+  {d:"2026-12-03",c:"INF1640",k:"prova",t:"PF",h:"11h · L154",src:F_REDES},
+  // EDSS
+  {d:"2026-08-31",c:"MAT4174",k:"teste",t:"Teste 1",h:"horário de aula",src:EDSS},
+  {d:"2026-09-03",c:"MAT4174",k:"entrega",t:"Envio MATLAB 04",h:"até 23h59",src:EDSS},
+  {d:"2026-09-10",c:"MAT4174",k:"entrega",t:"Envio MATLAB 05",h:"até 23h59",src:EDSS},
+  {d:"2026-09-16",c:"MAT4174",k:"teste",t:"Teste 2",h:"horário de aula",src:EDSS},
+  {d:"2026-09-21",c:"MAT4174",k:"prova",t:"G1",h:"horário de aula",src:CB},
+  {d:"2026-09-24",c:"MAT4174",k:"entrega",t:"Envio MATLAB 06",h:"até 23h59",src:EDSS},
+  {d:"2026-10-07",c:"MAT4174",k:"teste",t:"Teste 3 (EDOs periódicas)",h:"horário de aula",src:EDSS},
+  {d:"2026-10-26",c:"MAT4174",k:"teste",t:"Teste 4",h:"horário de aula",src:EDSS},
+  {d:"2026-10-28",c:"MAT4174",k:"prova",t:"G2",h:"horário de aula",src:CB},
+  {d:"2026-11-16",c:"MAT4174",k:"teste",t:"Teste 5",h:"horário de aula",src:EDSS},
+  {d:"2026-11-30",c:"MAT4174",k:"teste",t:"Teste 6",h:"horário de aula",src:EDSS},
+  {d:"2026-12-02",c:"MAT4174",k:"prova",t:"G3",h:"horário de aula",src:CB},
+  {d:"2026-12-09",c:"MAT4174",k:"prova",t:"G4",h:"horário de aula",src:CB}
+].sort((a,b)=>a.d.localeCompare(b.d));
+
+const HOLIDAYS={"2026-10-12":"N. Sra. Aparecida","2026-10-15":"Dia do Professor","2026-11-02":"Finados","2026-12-08":"Imac. Conceição"};
+const KIND={prova:"Prova",teste:"Teste",entrega:"Entrega",apres:"Apresentação",prep:"Preparação",aula:"Aula de dúvidas"};
+const WEIGHT={prova:2,teste:1,entrega:1,apres:1,prep:0,aula:0};
+const WD=["dom","seg","ter","qua","qui","sex","sáb"];
+const MON=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const MONL=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+
+const parse=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const iso=dt=>dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const now=new Date();const TODAY=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+const days=s=>Math.round((parse(s)-TODAY)/864e5);
+const rel=n=>n===0?"hoje":n===1?"amanhã":n===-1?"ontem":n>0?`em ${n} dias`:`há ${-n} dias`;
+const dm=s=>{const d=parse(s);return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0")};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cc=c=>`style="--cc:var(--c-${c})"`;
+const key=e=>e.d+"|"+e.c+"|"+e.t;
+
+let done={};try{done=JSON.parse(localStorage.getItem("agenda20262-done")||"{}")}catch(e){}
+const saveDone=()=>{try{localStorage.setItem("agenda20262-done",JSON.stringify(done))}catch(e){}};
+
+const state={on:new Set(Object.keys(COURSES)),past:false,sel:null,month:null};
+{const m=TODAY.getFullYear()*12+TODAY.getMonth();const lo=2026*12+7,hi=2026*12+11;state.month=Math.min(hi,Math.max(lo,m));}
+
+const visible=()=>EVENTS.filter(e=>state.on.has(e.c));
+const isEval=e=>e.k==="prova"||e.k==="teste"||e.k==="entrega"||e.k==="apres";
+
+function renderNext(){
+  const up=visible().filter(e=>days(e.d)>=0&&(e.k==="prova"||e.k==="teste"));
+  const el=document.getElementById("next");
+  if(!up.length){el.innerHTML=`<div class="eyebrow">Próxima avaliação</div><h2>Nada pela frente nas matérias selecionadas.</h2>`;return}
+  const e=up[0],n=days(e.d),d=parse(e.d),C=COURSES[e.c];
+  const same=up.filter(x=>x.d===e.d&&x!==e);
+  el.setAttribute("style",`--cc:var(--c-${e.c})`);
+  el.innerHTML=`<div class="eyebrow">Próxima avaliação</div>
+   <div class="big"><div class="count mono">${n===0?"Hoje":n}${n>0?`<small>${n===1?"dia":"dias"}</small>`:""}</div>
+   <div><h2>${esc(C.name)} · ${esc(e.t)}</h2>
+   <div class="meta">${WD[d.getDay()]}, ${dm(e.d)} · ${esc(e.h)}</div></div></div>
+   ${same.length?`<div class="meta">No mesmo dia: ${same.map(x=>esc(COURSES[x.c].name+" "+x.t)).join(", ")}</div>`:""}`;
+}
+function renderSoon(){
+  const el=document.getElementById("soon");
+  const up=visible().filter(e=>{const n=days(e.d);return n>=0&&n<=14&&e.k!=="prep"});
+  el.innerHTML=up.length?up.map(e=>{const n=days(e.d),d=parse(e.d);return `<div class="soon-row" ${cc(e.c)}>
+    <div class="when mono">${WD[d.getDay()]} ${dm(e.d)}</div>
+    <div class="what"><span class="st">${esc(e.t)}</span><span class="sc"><span class="dot"></span>${esc(COURSES[e.c].name)}</span></div>
+    <div class="rel ${n<=3?"hot":""}">${rel(n)}</div></div>`}).join(""):`<div class="soon-row"><div></div><div class="what" style="color:var(--muted)">Nada marcado nos próximos 14 dias.</div><div></div></div>`;
+}
+function renderFilters(){
+  const el=document.getElementById("filters");
+  el.innerHTML=Object.entries(COURSES).map(([c,C])=>`<button class="fchip" ${cc(c)} data-c="${c}" aria-pressed="${state.on.has(c)}"><span class="dot"></span>${esc(C.name)}</button>`).join("")+
+   `<label class="toggle"><input type="checkbox" id="showpast" ${state.past?"checked":""}> Mostrar o que já passou</label>`;
+  el.querySelectorAll(".fchip").forEach(b=>b.onclick=()=>{const c=b.dataset.c;state.on.has(c)?state.on.delete(c):state.on.add(c);renderAll()});
+  el.querySelector("#showpast").onchange=ev=>{state.past=ev.target.checked;renderList()};
+}
+function evHTML(e){
+  const d=parse(e.d),n=days(e.d),k=key(e),C=COURSES[e.c];
+  return `<div class="ev ${n<0?"past":""} ${done[k]?"done":""}" ${cc(e.c)} data-date="${e.d}">
+   <div class="date"><b>${dm(e.d)}</b><span>${WD[d.getDay()]}</span></div>
+   <div class="body">
+     <div class="line1"><span class="kind ${e.k==="prova"||e.k==="teste"?"":"soft"}">${KIND[e.k]}</span><span class="title">${esc(e.t)}</span></div>
+     <div class="sub"><span class="course"><span class="dot"></span>${esc(C.name)}</span> · ${esc(e.h)} · <a href="${e.src}" target="_blank" rel="noopener">fonte</a> · <span class="rel ${n>=0&&n<=3?"hot":""}">${rel(n)}</span></div>
+   </div>
+   <label class="chk"><input type="checkbox" data-k="${esc(k)}" ${done[k]?"checked":""}> feito</label></div>`;
+}
+function bindChecks(root){
+  root.querySelectorAll('input[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;if(i.checked)done[k]=1;else delete done[k];saveDone();renderList();renderDay()});
+}
+function weekStart(s){const d=parse(s);const off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return d}
+function renderList(){
+  const el=document.getElementById("list");
+  const evs=visible().filter(e=>state.past||days(e.d)>=0);
+  const groups=new Map();
+  evs.forEach(e=>{const w=iso(weekStart(e.d));if(!groups.has(w))groups.set(w,[]);groups.get(w).push(e)});
+  let html=`<div class="eyebrow" style="margin-bottom:12px">Semana a semana</div>`;
+  if(!evs.length)html+=`<p style="color:var(--muted)">Nada para mostrar com esses filtros.</p>`;
+  for(const [w,list] of groups){
+    const ws=parse(w),we=new Date(ws);we.setDate(ws.getDate()+6);
+    const load=list.reduce((a,e)=>a+WEIGHT[e.k],0);
+    const heavy=load>=5;
+    const bars=Array.from({length:8},(_,i)=>`<i class="${i<load?"on":""}"></i>`).join("");
+    const thisWeek=TODAY>=ws&&TODAY<=we;
+    html+=`<div class="week ${heavy?"heavy":""}"><div class="week-h">
+      <span class="lbl">${thisWeek?"Esta semana":"Semana de "+dm(iso(ws))} <span class="mono" style="color:var(--muted);font-weight:400;font-size:12px">${dm(iso(ws))}–${dm(iso(we))}</span></span>
+      <span class="load">${heavy?"semana pesada":""}<span class="bars" aria-label="carga ${load}">${bars}</span></span></div>
+      ${list.map(evHTML).join("")}</div>`;
+  }
+  el.innerHTML=html;bindChecks(el);
+}
+function renderCal(){
+  const y=Math.floor(state.month/12),m=state.month%12;
+  document.getElementById("mlabel").textContent=MONL[m]+" "+y;
+  document.getElementById("prev").disabled=state.month<=2026*12+7;
+  document.getElementById("nextm").disabled=state.month>=2026*12+11;
+  const first=new Date(y,m,1),lead=(first.getDay()+6)%7,len=new Date(y,m+1,0).getDate();
+  const byDay={};visible().forEach(e=>{(byDay[e.d]=byDay[e.d]||[]).push(e)});
+  let h=["seg","ter","qua","qui","sex","sáb","dom"].map(w=>`<div class="wd">${w}</div>`).join("");
+  for(let i=0;i<lead;i++)h+=`<div class="day out" aria-hidden="true"></div>`;
+  for(let d=1;d<=len;d++){
+    const s=iso(new Date(y,m,d)),list=byDay[s]||[],n=days(s);
+    const cls=["day",HOLIDAYS[s]?"hol":"",n===0?"today":"",n<0?"past":"",state.sel===s?"sel":""].join(" ");
+    h+=`<button class="${cls}" data-d="${s}" aria-label="${d} de ${MONL[m]}, ${list.length} eventos"><span class="num">${d}</span>
+      <span class="tags">${list.slice(0,3).map(e=>`<span class="tag ${e.k==="prova"||e.k==="teste"?"":"lite"}" ${cc(e.c)}>${esc(e.t.split(" (")[0])}</span>`).join("")}${list.length>3?`<span class="holname">+${list.length-3}</span>`:""}</span>
+      ${HOLIDAYS[s]?`<span class="holname">${HOLIDAYS[s]}</span>`:""}</button>`;
+  }
+  const cal=document.getElementById("cal");cal.innerHTML=h;
+  cal.querySelectorAll(".day[data-d]").forEach(b=>b.onclick=()=>{state.sel=state.sel===b.dataset.d?null:b.dataset.d;renderCal();renderDay()});
+}
+function renderDay(){
+  const el=document.getElementById("daybox");
+  if(!state.sel){el.innerHTML=`<div class="empty">Toque num dia para ver o que tem nele.</div>`;return}
+  const d=parse(state.sel),list=visible().filter(e=>e.d===state.sel);
+  el.innerHTML=`<div class="eyebrow">${WD[d.getDay()]}, ${d.getDate()} de ${MONL[d.getMonth()]}${HOLIDAYS[state.sel]?" · feriado: "+HOLIDAYS[state.sel]:""}</div>`+
+    (list.length?list.map(evHTML).join(""):`<div class="empty">Nada marcado neste dia.</div>`);
+  bindChecks(el);
+}
+function renderSources(){
+  document.getElementById("sources").innerHTML=Object.entries(COURSES).map(([c,C])=>`<a href="${C.url}" target="_blank" rel="noopener" ${cc(c)}><span class="dot"></span><span><span class="t">${esc(C.name)}</span> <span class="mono" style="color:var(--muted);font-size:12px">${c}</span><br><span style="color:var(--muted);font-size:13px">${esc(C.detail)}</span></span></a>`).join("")+
+   `<a href="${CB}" target="_blank" rel="noopener"><span class="dot" style="--cc:var(--muted)"></span><span class="t">Calendário de provas do CB/CTC</span></a>`;
+}
+function renderAll(){renderFilters();renderNext();renderSoon();renderCal();renderDay();renderList()}
+document.getElementById("prev").onclick=()=>{state.month--;renderCal()};
+document.getElementById("nextm").onclick=()=>{state.month++;renderCal()};
+renderSources();renderAll();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
