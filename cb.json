@@ -1,0 +1,84 @@
+{
+ "lido_em": "2026-09-30T01:18:05-03:00",
+ "fonte": "https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx",
+ "linhas_na_pagina": 142,
+ "provas": [
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "T1",
+   "data": "2026-09-04",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "G1",
+   "data": "2026-09-18",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "MAT4174",
+   "avaliacao": "G1",
+   "data": "2026-09-21",
+   "horario": "Horário de aula",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "T2",
+   "data": "2026-10-09",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "G2",
+   "data": "2026-10-26",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "MAT4174",
+   "avaliacao": "G2",
+   "data": "2026-10-28",
+   "horario": "Horário de aula",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "T3",
+   "data": "2026-11-27",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "G3",
+   "data": "2026-11-30",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "MAT4174",
+   "avaliacao": "G3",
+   "data": "2026-12-02",
+   "horario": "Horário de aula",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "MAT4174",
+   "avaliacao": "G4",
+   "data": "2026-12-09",
+   "horario": "Horário de aula",
+   "turmas": "TODAS AS TURMAS"
+  },
+  {
+   "codigo": "ENG4501",
+   "avaliacao": "G4",
+   "data": "2026-12-10",
+   "horario": "17-18:50H",
+   "turmas": "TODAS AS TURMAS"
+  }
+ ]
+}
