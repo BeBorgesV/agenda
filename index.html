@@ -286,6 +286,23 @@ a.btn{text-decoration:none;color:var(--ink)}
 /* formulário */
 dialog{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:0;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px)}
 dialog::backdrop{background:rgba(10,14,22,.45)}
+.ev{cursor:pointer}
+.ev:hover{background:var(--wkd)}
+#det{width:min(400px,calc(100vw - 24px))}
+.det{display:flex;flex-direction:column;gap:12px;padding:18px 18px 16px;border-top:5px solid var(--cc)}
+.det-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.det h3{font-size:21px;line-height:1.2;letter-spacing:-.01em;outline:none}
+.xbtn{border:0;background:none;font-size:22px;line-height:1;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:8px}
+.det dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 14px;font-size:14px}
+.det dt{color:var(--muted);font-size:13px}
+.det dd{margin:0;min-width:0}
+.det .flags{display:flex;flex-wrap:wrap;gap:6px}
+.det-act{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line2);padding-top:12px}
+.det-act .sp{flex:1}
+.det-act .chk{width:auto;height:auto;gap:8px;border-radius:999px;padding:4px 10px 4px 6px;border:1px solid var(--line);font-size:13px;font-weight:600}
+@media (max-width:520px){
+  #det{margin:auto 0 0;width:100%;max-width:100%;border-radius:18px 18px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom)}
+}
 #ev-form{display:flex;flex-direction:column;gap:12px;padding:20px}
 #ev-form h3{font-size:20px}
 #ev-form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--muted);min-width:0}
@@ -351,7 +368,7 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
       <div class="daybox" id="daybox"></div>
     </div>
     <div class="card panel" data-tab="semanas">
-      <div class="list-h"><div class="eyebrow">Semana a semana</div><label class="toggle"><input type="checkbox" id="showpast"> Mostrar o que já passou</label></div>
+      <div class="list-h"><div class="eyebrow">Semana a semana</div><label class="toggle"><input type="checkbox" id="showpast"> Mostrar feitos e o que já passou</label></div>
       <div id="list"></div>
     </div>
   </section>
@@ -372,11 +389,14 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
       <div class="in">
         <div class="src" id="sources"></div>
         <p class="muted"><b>Verificação do CB:</b> a agenda compara as datas de ProbEst e EDSS com a última leitura do calendário de provas do CB, ao abrir e quando você puxa a página para baixo. Se uma data mudar, ela troca sozinha e avisa. O EAD pede login, então as datas de lá não são conferidas sozinhas.</p>
-        <p class="muted">Os eventos que você cria e a marcação de feito ficam salvos só neste aparelho.</p>
+        <p class="muted">Os eventos que você cria ou edita e a marcação de feito ficam salvos só neste aparelho.</p>
+        <p class="muted" id="hidden-info" hidden></p>
       </div>
     </details>
   </section>
 </div>
+
+<dialog id="det" aria-label="Detalhes do evento"><div id="det-in"></div></dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-t"></span><button type="button" id="toast-undo">Desfazer</button></div>
 
@@ -403,6 +423,7 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
     <p class="err" id="f-err" hidden></p>
     <div class="actions">
       <button type="button" class="btn danger small" id="f-del" hidden>Excluir</button>
+      <button type="button" class="btn small" id="f-reset" hidden>Voltar ao original</button>
       <span class="sp"></span>
       <button type="button" class="btn" id="f-cancel">Cancelar</button>
       <button type="submit" class="btn primary">Salvar</button>
@@ -529,7 +550,11 @@ function saveCustom(){
   try{localStorage.setItem("agenda20262-atualizado",userUpdated)}catch(e){}
   renderUpdated();
 }
-const allEvents=()=>EVENTS.concat(custom).sort((a,b)=>a.d.localeCompare(b.d));
+/* Edições que você faz nos eventos que já vinham na agenda (chave fixa do evento -> campos novos ou {hidden:true}). */
+let edits=store.get("agenda20262-edits",{});if(!edits||typeof edits!=="object"||Array.isArray(edits))edits={};
+const saveEdits=()=>{store.set("agenda20262-edits",edits);saveCustom()};
+const allEvents=()=>EVENTS.filter(e=>!e.hidden).concat(custom).sort((a,b)=>a.d.localeCompare(b.d));
+const findEv=k=>EVENTS.concat(custom).find(e=>key(e)===k);
 
 /* ---------- conferência com o calendário do CB ---------- */
 const cb={data:null,changes:[],busy:false,err:false,at:0,p:null};
@@ -556,11 +581,17 @@ function applyCB(){
         used.add(e);
         if(e.d!==p.data){cb.changes.push({tipo:"data",c:e.c,t:short(e.t),de:e.d,para:p.data});e.moved=e.d;e.d=p.data;e.src=CB}
       }else{
-        const n={d:p.data,c:p.codigo,k:/^T/i.test(p.avaliacao)?"teste":"prova",t:p.avaliacao,h:horCB(p.horario),src:CB,cb:p.avaliacao,novo:true};
+        const n={d:p.data,c:p.codigo,k:/^T/i.test(p.avaliacao)?"teste":"prova",t:p.avaliacao,h:horCB(p.horario),src:CB,cb:p.avaliacao,novo:true,bk:"cb|"+p.codigo+"|"+p.avaliacao};
         EVENTS.push(n);used.add(n);cb.changes.push({tipo:"novo",c:n.c,t:n.t,para:n.d});
       }
     }
     for(const e of EVENTS)if(e.cb&&!used.has(e)){e.gone=true;cb.changes.push({tipo:"sumiu",c:e.c,t:short(e.t),de:e.d})}
+  }
+  for(const e of EVENTS){
+    const o=edits[key(e)];if(!o)continue;
+    if(o.hidden){e.hidden=true;continue}
+    for(const f of ["d","t","h","c","k"])if(typeof o[f]==="string"&&(f!=="c"||COURSES[o[f]]))e[f]=o[f];
+    e.edited=true;
   }
   EVENTS.sort((a,b)=>a.d.localeCompare(b.d));
 }
@@ -581,7 +612,7 @@ function checkCB(){
   cb.p=fetchCB().then(j=>{
     cb.busy=false;cb.at=Date.now();cb.err=!j;
     if(j&&(!cb.data||new Date(j.lido_em)>=new Date(cb.data.lido_em))){cb.data=j;store.set("agenda20262-cb",j)}
-    applyCB();renderUpdated();renderAll();renderSync();renderChanges();
+    applyCB();renderUpdated();renderAll();renderSync();renderChanges();renderHidden();
   });
   return cb.p;
 }
@@ -605,7 +636,10 @@ function renderSync(){
   else if(!cb.data)t=cb.err?"Não deu para verificar o CB agora":"CB ainda não verificado";
   else{
     const n=cb.changes.length;
-    t=`CB conferido ${when(new Date(cb.data.lido_em))} · `+(n?`${n} ${n>1?"mudanças":"mudança"}`:"sem mudanças")+(cb.err?" · sem conexão agora":"");
+    const lido=new Date(cb.data.lido_em),velho=Date.now()-lido>20*3600e3;
+    t=(cb.err||!cb.at?`CB lido ${when(lido)}`:`Conferido ${when(new Date(cb.at))}`)+" · "+(n?`${n} ${n>1?"mudanças":"mudança"}`:"sem mudanças")+
+      (cb.err?" · sem conexão agora":velho?` · CB lido ${when(lido)}`:"");
+    b.title=`Última leitura do calendário do CB: ${when(lido)}. Toque para conferir de novo.`;
   }
   $("sync-t").textContent=t;
 }
@@ -650,14 +684,14 @@ function renderSoon(){
   const feitos=all.filter(e=>done[key(e)]);
   const up=state.showDone?all:all.filter(e=>!done[key(e)]);
   el.innerHTML=(up.length?up.map(e=>{const n=days(e.d),d=parse(e.d),k=key(e),f=!!done[k];return `<div class="soon-row ${f?"done":""}" ${cc(e.c)}>
-    <button type="button" class="go" data-d="${e.d}"><div class="when"><b>${d.getDate()}</b><span>${WD[d.getDay()]}</span></div>
+    <button type="button" class="go" data-ev="${esc(k)}"><div class="when"><b>${d.getDate()}</b><span>${WD[d.getDay()]}</span></div>
     <div class="what"><span class="st">${esc(e.t)}</span><span class="sc"><span class="dot"></span>${esc(COURSES[e.c].name)}</span></div>
     <div class="rel ${n<=3&&!f?"hot":""}">${f?"feito":rel(n)}</div></button>
     <label class="chk" title="${f?"Desmarcar":"Marcar como feito"}"><input type="checkbox" data-k="${esc(k)}" data-t="${esc(short(e.t))}" ${f?"checked":""}><span class="sr">feito</span></label></div>`}).join(""):`<p style="color:var(--muted);margin:8px 0 0">${feitos.length?"Tudo feito nos próximos 14 dias.":"Nada marcado nos próximos 14 dias."}</p>`)+
     (feitos.length?`<div class="donebar"><span>✓ ${feitos.length} ${feitos.length>1?"feitos":"feito"} ${state.showDone?"":"escondido"+(feitos.length>1?"s":"")}</span><button type="button" class="linkbtn" id="tg-done">${state.showDone?"Esconder":"Mostrar"}</button></div>`:"");
   bindChecks(el);
   if($("tg-done"))$("tg-done").onclick=()=>{state.showDone=!state.showDone;renderSoon()};
-  el.querySelectorAll(".go[data-d]").forEach(b=>b.onclick=()=>goDay(b.dataset.d));
+  el.querySelectorAll(".go[data-ev]").forEach(b=>b.onclick=()=>openDet(b.dataset.ev));
 }
 function renderFilters(){
   const el=$("filters");
@@ -693,11 +727,11 @@ function goDay(s){
 function evHTML(e){
   const d=parse(e.d),n=days(e.d),k=key(e),C=COURSES[e.c];
   const flag=e.moved?`<span class="flag">data mudou · era ${dm(e.moved)}</span>`:e.novo?`<span class="flag">novo no CB</span>`:e.gone?`<span class="flag">sumiu do CB</span>`:"";
-  return `<div class="ev ${n<0?"past":""} ${done[k]?"done":""}" ${cc(e.c)} data-date="${e.d}">
+  return `<div class="ev ${n<0?"past":""} ${done[k]?"done":""}" ${cc(e.c)} data-date="${e.d}" data-ev="${esc(k)}">
    <div class="date"><b>${d.getDate()}</b><span>${WD[d.getDay()]}</span></div>
    <div class="body">
-     <div class="line1"><span class="kind ${e.k==="prova"||e.k==="teste"?"":"soft"}">${KIND[e.k]||"Outro"}</span><span class="title">${esc(e.t)}</span>${e.id?`<span class="mine">criado por você</span>`:""}${flag}</div>
-     <div class="sub"><span class="course"><span class="dot"></span>${esc(C.name)}</span>${e.h?` · ${esc(e.h)}`:""} · ${e.id?`<button type="button" class="linkbtn" data-edit="${esc(e.id)}">editar</button>`:`<a href="${e.src}" target="_blank" rel="noopener">fonte</a>`} · <span class="rel ${n>=0&&n<=3?"hot":""}">${rel(n)}</span></div>
+     <div class="line1"><span class="kind ${e.k==="prova"||e.k==="teste"?"":"soft"}">${KIND[e.k]||"Outro"}</span><span class="title">${esc(e.t)}</span>${e.id?`<span class="mine">criado por você</span>`:e.edited?`<span class="mine">editado</span>`:""}${flag}</div>
+     <div class="sub"><span class="course"><span class="dot"></span>${esc(C.name)}</span>${e.h?` · ${esc(e.h)}`:""} · <span class="rel ${n>=0&&n<=3?"hot":""}">${rel(n)}</span></div>
    </div>
    <label class="chk" title="${done[k]?"Feito":"Marcar como feito"}"><input type="checkbox" data-k="${esc(k)}" ${done[k]?"checked":""}><span class="sr">feito</span></label></div>`;
 }
@@ -706,7 +740,7 @@ function bindChecks(root){
     const row=i.closest(".ev,.soon-row"),t=i.dataset.t||(row&&row.querySelector(".title,.st")?.textContent)||"";
     setDone(i.dataset.k,i.checked,t);
   });
-  root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openForm({id:b.dataset.edit}));
+  root.querySelectorAll('.ev[data-ev]').forEach(r=>r.onclick=ev=>{if(ev.target.closest(".chk,a,button,input"))return;openDet(r.dataset.ev)});
 }
 /* marcar e desmarcar como feito (com Desfazer) */
 let toastTimer=null;
@@ -714,21 +748,57 @@ function setDone(k,on,t){
   if(on)done[k]=1;else delete done[k];
   saveDone();renderNext();renderSoon();renderCal();renderDay();renderList();renderFocus();
   if(!on){hideToast();return}
-  $("toast-t").textContent=`"${short(t||"Evento")}" marcado como feito`;
-  $("toast").classList.add("show");
-  $("toast-undo").onclick=()=>{setDone(k,false);};
+  toast(`"${short(t||"Evento")}" marcado como feito`,()=>setDone(k,false));
+}
+function toast(msg,undo){
+  $("toast-t").textContent=msg;$("toast").classList.add("show");
+  $("toast-undo").hidden=!undo;$("toast-undo").onclick=()=>{hideToast();if(undo)undo()};
   clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,6000);
 }
+/* detalhes do evento */
+const det=$("det");
+function openDet(k){
+  const e=findEv(k);if(!e)return;
+  const d=parse(e.d),n=days(e.d),C=COURSES[e.c],f=!!done[k];
+  const flags=[e.id?"criado por você":"",e.edited?"editado por você":"",e.moved?`data mudou no CB (era ${dm(e.moved)})`:"",e.novo?"novo no CB":"",e.gone?"sumiu do CB":""].filter(Boolean);
+  $("det-in").innerHTML=`<div class="det" ${cc(e.c)}>
+    <div class="det-h"><span class="kind ${e.k==="prova"||e.k==="teste"?"":"soft"}">${KIND[e.k]||"Outro"}</span><button type="button" class="xbtn" id="det-x" aria-label="Fechar">×</button></div>
+    <h3 tabindex="-1">${esc(e.t)}</h3>
+    <dl>
+      <dt>Quando</dt><dd>${WD[d.getDay()]}, ${d.getDate()} de ${MONL[d.getMonth()]} · <span class="rel ${n>=0&&n<=3?"hot":""}">${rel(n)}</span></dd>
+      ${e.h?`<dt>Horário</dt><dd>${esc(e.h)}</dd>`:""}
+      <dt>Matéria</dt><dd><span class="course" style="color:var(--ink)"><span class="dot"></span>${esc(C.name)}</span></dd>
+      ${HOLIDAYS[e.d]?`<dt>Atenção</dt><dd style="color:var(--hol-ink)">feriado: ${HOLIDAYS[e.d]}</dd>`:""}
+    </dl>
+    ${flags.length?`<div class="flags">${flags.map(x=>`<span class="flag">${esc(x)}</span>`).join("")}</div>`:""}
+    <div class="det-act">
+      <label class="chk"><input type="checkbox" id="det-done" ${f?"checked":""}>${f?"Feito":"Marcar feito"}</label>
+      ${e.src?`<a class="btn small" href="${e.src}" target="_blank" rel="noopener">Fonte</a>`:""}
+      <span class="sp"></span>
+      <button type="button" class="btn small" id="det-cal">No calendário</button>
+      <button type="button" class="btn small primary" id="det-edit">Editar</button>
+    </div></div>`;
+  $("det-x").onclick=closeDet;
+  $("det-done").onchange=ev=>{closeDet();setDone(k,ev.target.checked,e.t)};
+  $("det-cal").onclick=()=>{closeDet();goDay(e.d)};
+  $("det-edit").onclick=()=>{closeDet();openForm({k})};
+  if(typeof det.showModal==="function")det.showModal();else det.setAttribute("open","");
+  $("det-in").querySelector("h3").focus({preventScroll:true});
+}
+function closeDet(){if(typeof det.close==="function")det.close();else det.removeAttribute("open")}
+det.addEventListener("click",ev=>{if(ev.target===det)closeDet()});
 function hideToast(){clearTimeout(toastTimer);$("toast").classList.remove("show")}
 function weekStart(s){const d=parse(s);const off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return d}
 function span(a,b){return a.getMonth()===b.getMonth()?`${a.getDate()} – ${b.getDate()} ${MON[b.getMonth()]}`:`${a.getDate()} ${MON[a.getMonth()]} – ${b.getDate()} ${MON[b.getMonth()]}`}
 function renderList(){
   const el=$("list");
-  const evs=visible().filter(e=>state.past||days(e.d)>=0);
+  const evs=visible().filter(e=>state.past||(days(e.d)>=0&&!done[key(e)]));
   const groups=new Map();
   evs.forEach(e=>{const w=iso(weekStart(e.d));if(!groups.has(w))groups.set(w,[]);groups.get(w).push(e)});
   let html="";
-  if(!evs.length)html=`<p style="color:var(--muted)">Nada para mostrar com esses filtros.</p>`;
+  const nf=state.past?0:visible().filter(e=>days(e.d)>=0&&done[key(e)]).length;
+  if(nf)html=`<div class="donebar" style="margin:0 0 12px;border-top:0;padding-top:0"><span>✓ ${nf} ${nf>1?"feitos escondidos":"feito escondido"}</span><button type="button" class="linkbtn" id="list-showdone">Mostrar</button></div>`;
+  if(!evs.length)html+=`<p style="color:var(--muted)">${nf?"Tudo feito por aqui.":"Nada para mostrar com esses filtros."}</p>`;
   for(const [w,list] of groups){
     const ws=parse(w),we=new Date(ws);we.setDate(ws.getDate()+6);
     const load=list.reduce((a,e)=>a+(WEIGHT[e.k]||0),0);
@@ -741,6 +811,7 @@ function renderList(){
       ${list.map(evHTML).join("")}</div>`;
   }
   el.innerHTML=html;bindChecks(el);
+  if($("list-showdone"))$("list-showdone").onclick=()=>{state.past=true;$("showpast").checked=true;renderList()};
 }
 function renderCal(){
   const y=Math.floor(state.month/12),m=state.month%12;
@@ -782,12 +853,14 @@ function renderAll(){renderFilters();renderFocus();renderNext();renderSoon();ren
 
 /* ---------- criar / editar / excluir evento ---------- */
 const dlg=$("form-dlg"),form=$("ev-form");
-let editing=null,confirmDel=false;
+let editing=null,editKey=null;
 $("f-c").innerHTML=Object.entries(COURSES).map(([c,C])=>`<option value="${c}">${esc(C.name)}</option>`).join("");
-$("f-k").innerHTML=KIND_FORM.map(k=>`<option value="${k}">${KIND[k]}</option>`).join("");
-function openForm({id,d}={}){
-  editing=id?custom.find(e=>e.id===id):null;
-  confirmDel=false;$("f-del").textContent="Excluir";$("f-del").hidden=!editing;$("f-err").hidden=true;
+function openForm({k,d}={}){
+  editing=k?findEv(k):null;editKey=editing?k:null;
+  const kinds=editing&&!KIND_FORM.includes(editing.k)?KIND_FORM.concat(editing.k):KIND_FORM;
+  $("f-k").innerHTML=kinds.map(x=>`<option value="${x}">${KIND[x]||x}</option>`).join("");
+  $("f-del").hidden=!editing;$("f-err").hidden=true;
+  $("f-reset").hidden=!(editing&&!editing.id&&edits[k]);
   $("form-title").textContent=editing?"Editar evento":"Novo evento";
   $("f-c").value=editing?editing.c:(state.only||"INF1022");
   $("f-k").value=editing?editing.k:"prova";
@@ -797,25 +870,44 @@ function openForm({id,d}={}){
   if(typeof dlg.showModal==="function")dlg.showModal();else dlg.setAttribute("open","");
   $("f-t").focus();
 }
-function closeForm(){if(typeof dlg.close==="function")dlg.close();else dlg.removeAttribute("open");editing=null}
+function closeForm(){if(typeof dlg.close==="function")dlg.close();else dlg.removeAttribute("open");editing=null;editKey=null}
+function refreshAll(){applyCB();renderUpdated();renderAll();renderHidden()}
+function renderHidden(){
+  const n=Object.values(edits).filter(o=>o&&o.hidden).length,el=$("hidden-info");
+  el.hidden=!n;if(!n)return;
+  el.innerHTML=`${n} ${n>1?"eventos da agenda excluídos":"evento da agenda excluído"} por você. <button type="button" class="linkbtn" id="unhide">Trazer de volta</button>`;
+  $("unhide").onclick=()=>{for(const k in edits)if(edits[k]&&edits[k].hidden)delete edits[k];saveEdits();refreshAll()};
+}
 function showErr(msg){$("f-err").textContent=msg;$("f-err").hidden=false}
 form.addEventListener("submit",ev=>{
   ev.preventDefault();
   const t=$("f-t").value.trim(),d=$("f-d").value,h=$("f-h").value.trim(),c=$("f-c").value,k=$("f-k").value;
   if(!t){showErr("Escreva o que é o evento, por exemplo \"P1\".");$("f-t").focus();return}
   if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){showErr("Escolha a data do evento.");$("f-d").focus();return}
-  if(editing)Object.assign(editing,{t,d,h,c,k});
-  else custom.push({id:"u"+Date.now().toString(36),t,d,h,c,k});
-  saveCustom();if(state.only&&state.only!==c)state.only=null;state.sel=d;
+  if(editing&&editing.id){Object.assign(editing,{t,d,h,c,k});saveCustom()}
+  else if(editing){edits[editKey]={t,d,h,c,k};saveEdits()}
+  else{custom.push({id:"u"+Date.now().toString(36),t,d,h,c,k});saveCustom()}
+  if(state.only&&state.only!==c)state.only=null;state.sel=d;
   const dt=parse(d);state.month=dt.getFullYear()*12+dt.getMonth();
-  closeForm();renderAll();
+  closeForm();refreshAll();
 });
 $("f-cancel").onclick=closeForm;
 form.addEventListener("input",()=>{$("f-err").hidden=true});
 $("f-del").onclick=()=>{
   if(!editing)return;
-  if(!confirmDel){confirmDel=true;$("f-del").textContent="Confirmar exclusão";return}
-  const k=key(editing);custom=custom.filter(e=>e!==editing);delete done[k];saveDone();saveCustom();closeForm();renderAll();
+  const e=editing,k=editKey,nome=short(e.t);
+  if(e.id){
+    const i=custom.indexOf(e);custom.splice(i,1);saveCustom();closeForm();refreshAll();
+    toast(`"${nome}" excluído`,()=>{custom.splice(i,0,e);saveCustom();refreshAll()});
+  }else{
+    const antes=edits[k];edits[k]={hidden:true};saveEdits();closeForm();refreshAll();
+    toast(`"${nome}" excluído`,()=>{if(antes)edits[k]=antes;else delete edits[k];saveEdits();refreshAll()});
+  }
+};
+$("f-reset").onclick=()=>{
+  if(!editKey)return;const k=editKey,antes=edits[k];
+  delete edits[k];saveEdits();closeForm();refreshAll();
+  toast("Evento voltou ao original",()=>{edits[k]=antes;saveEdits();refreshAll()});
 };
 dlg.addEventListener("click",ev=>{if(ev.target===dlg)closeForm()});
 $("new-ev").onclick=$("fab").onclick=()=>openForm({d:state.sel||undefined});
@@ -865,7 +957,7 @@ $("changes-ok").onclick=()=>{store.set("agenda20262-cbvisto",sigCB());renderChan
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&Date.now()-cb.at>60000)checkCB()});
 if(matchMedia("(min-width:861px)").matches)document.querySelectorAll("details.fold").forEach(d=>d.open=true);
 
-renderSources();renderUpdated();renderAll();renderSync();renderChanges();checkCB();
+renderSources();renderUpdated();renderAll();renderSync();renderChanges();renderHidden();checkCB();
 </script>
 
 <script>
