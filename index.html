@@ -132,8 +132,21 @@ a.btn{text-decoration:none;color:var(--ink)}
 .next .also{font-size:13px;color:var(--muted);border-top:1px solid var(--line2);padding-top:10px}
 .soonbox{padding:16px 18px}
 .soon{display:flex;flex-direction:column;margin-top:6px}
-.soon-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 6px;border:0;border-bottom:1px solid var(--line2);background:none;text-align:left;cursor:pointer;border-radius:8px;width:100%}
-.soon-row:hover{background:var(--wkd)}
+.soon-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px;align-items:center;border-bottom:1px solid var(--line2)}
+.soon-row .go{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 6px;border:0;background:none;text-align:left;cursor:pointer;border-radius:8px;width:100%;min-width:0}
+.soon-row .go:hover{background:var(--wkd)}
+.soon-row.done .st{text-decoration:line-through;color:var(--muted)}
+.soon-row.done .when{opacity:.5}
+.donebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.next .row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.okbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px 5px 9px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
+.okbtn:hover{border-color:var(--ok);color:var(--ok)}
+.okbtn i{width:16px;height:16px;border-radius:50%;border:2px solid currentColor;display:inline-block;opacity:.7}
+.toast{position:fixed;left:50%;bottom:24px;z-index:40;transform:translate(-50%,20px);opacity:0;pointer-events:none;display:flex;align-items:center;gap:14px;background:#1f2633;color:#fff;border-radius:12px;padding:11px 12px 11px 16px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px);transition:transform .2s,opacity .2s}
+.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.toast span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast button{background:none;border:0;color:#8ab4f8;font-weight:700;cursor:pointer;padding:4px 6px;flex:none}
+.tag.donetag{opacity:.4;text-decoration:line-through}
 .soon-row:last-child{border-bottom:0}
 .soon-row .when{display:flex;flex-direction:column;align-items:center;line-height:1;border-radius:9px;padding:5px 0;background:color-mix(in srgb,var(--cc) 13%,transparent);color:var(--cc)}
 .soon-row .when b{font-family:var(--f-display);font-size:19px}
@@ -250,6 +263,7 @@ a.btn{text-decoration:none;color:var(--ink)}
   #fab{display:inline-flex;position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:16;width:58px;height:58px;padding:0;border-radius:18px;font-size:30px;font-weight:400;line-height:1;box-shadow:0 8px 24px rgba(0,0,0,.22)}
   .panel{padding:14px}
   .next{padding:18px}
+  .toast{bottom:calc(146px + env(safe-area-inset-bottom))}
 }
 @media (max-width:520px){
   .logo{width:38px;height:40px;border-radius:10px}
@@ -363,6 +377,8 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
     </details>
   </section>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-t"></span><button type="button" id="toast-undo">Desfazer</button></div>
 
 <button class="btn primary" id="fab" type="button" aria-label="Novo evento" title="Novo evento">+</button>
 
@@ -601,7 +617,7 @@ function renderUpdated(){
 }
 applyCB();
 
-const state={only:null,past:false,sel:null,month:null,tab:"inicio"};
+const state={only:null,past:false,sel:null,month:null,tab:"inicio",showDone:false};
 function monthBounds(){
   const ds=allEvents().map(e=>e.d);const mi=s=>{const d=parse(s);return d.getFullYear()*12+d.getMonth()};
   return [Math.min(2026*12+7,...ds.map(mi)),Math.max(2026*12+11,...ds.map(mi))];
@@ -612,29 +628,36 @@ function monthBounds(){
 const visible=()=>allEvents().filter(e=>!state.only||e.c===state.only);
 
 function renderNext(){
-  const up=visible().filter(e=>days(e.d)>=0&&(e.k==="prova"||e.k==="teste")&&!e.gone);
+  const up=visible().filter(e=>days(e.d)>=0&&(e.k==="prova"||e.k==="teste")&&!e.gone&&!done[key(e)]);
   const el=$("next");
-  if(!up.length){el.className="card next";el.removeAttribute("style");el.innerHTML=`<div class="eyebrow">Próxima avaliação</div><h2>Nada pela frente nas matérias selecionadas.</h2>`;return}
+  if(!up.length){el.className="card next";el.removeAttribute("style");el.innerHTML=`<div class="eyebrow">Próxima avaliação</div><h2>Nada pela frente${state.only?" nesta matéria":""}.</h2>`;return}
   const e=up[0],n=days(e.d),d=parse(e.d),C=COURSES[e.c];
   const same=up.filter(x=>x.d===e.d&&x!==e);
   const ent=visible().find(x=>days(x.d)>=0&&x.k==="entrega"&&!done[key(x)]);
   el.className="card next has";
   el.setAttribute("style",`--cc:var(--c-${e.c})`);
-  el.innerHTML=`<div class="eyebrow">Próxima avaliação</div>
+  el.innerHTML=`<div class="row"><div class="eyebrow">Próxima avaliação</div><button type="button" class="okbtn" data-ok="${esc(key(e))}"><i></i>Já fiz</button></div>
    <div class="big"><div class="count">${n===0?"Hoje":n}${n>0?`<small>${n===1?"dia":"dias"}</small>`:""}</div>
    <div><h2>${esc(C.name)} · ${esc(short(e.t))}</h2>
    <div class="meta">${WD[d.getDay()]}, ${dm(e.d)}${e.h?` · ${esc(e.h)}`:""}${e.moved?` · <span class="flag">data mudou</span>`:""}</div></div></div>
    ${same.length?`<div class="also">No mesmo dia: ${same.map(x=>esc(COURSES[x.c].name+" "+short(x.t))).join(", ")}</div>`:""}
    ${ent?`<div class="also foot"><span class="eyebrow">Próxima entrega</span><span><b>${esc(ent.t)}</b> · ${esc(COURSES[ent.c].name)} · ${WD[parse(ent.d).getDay()]}, ${dm(ent.d)} · <span class="rel ${days(ent.d)<=3?"hot":""}">${rel(days(ent.d))}</span></span></div>`:""}`;
+  el.querySelectorAll("[data-ok]").forEach(b=>b.onclick=()=>setDone(b.dataset.ok,true,short(e.t)));
 }
 function renderSoon(){
   const el=$("soon");
-  const up=visible().filter(e=>{const n=days(e.d);return n>=0&&n<=14&&e.k!=="prep"&&!e.gone});
-  el.innerHTML=up.length?up.map(e=>{const n=days(e.d),d=parse(e.d);return `<button type="button" class="soon-row" ${cc(e.c)} data-d="${e.d}">
-    <div class="when"><b>${d.getDate()}</b><span>${WD[d.getDay()]}</span></div>
+  const all=visible().filter(e=>{const n=days(e.d);return n>=0&&n<=14&&e.k!=="prep"&&!e.gone});
+  const feitos=all.filter(e=>done[key(e)]);
+  const up=state.showDone?all:all.filter(e=>!done[key(e)]);
+  el.innerHTML=(up.length?up.map(e=>{const n=days(e.d),d=parse(e.d),k=key(e),f=!!done[k];return `<div class="soon-row ${f?"done":""}" ${cc(e.c)}>
+    <button type="button" class="go" data-d="${e.d}"><div class="when"><b>${d.getDate()}</b><span>${WD[d.getDay()]}</span></div>
     <div class="what"><span class="st">${esc(e.t)}</span><span class="sc"><span class="dot"></span>${esc(COURSES[e.c].name)}</span></div>
-    <div class="rel ${n<=3?"hot":""}">${rel(n)}</div></button>`}).join(""):`<p style="color:var(--muted);margin:8px 0 0">Nada marcado nos próximos 14 dias.</p>`;
-  el.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>goDay(b.dataset.d));
+    <div class="rel ${n<=3&&!f?"hot":""}">${f?"feito":rel(n)}</div></button>
+    <label class="chk" title="${f?"Desmarcar":"Marcar como feito"}"><input type="checkbox" data-k="${esc(k)}" data-t="${esc(short(e.t))}" ${f?"checked":""}><span class="sr">feito</span></label></div>`}).join(""):`<p style="color:var(--muted);margin:8px 0 0">${feitos.length?"Tudo feito nos próximos 14 dias.":"Nada marcado nos próximos 14 dias."}</p>`)+
+    (feitos.length?`<div class="donebar"><span>✓ ${feitos.length} ${feitos.length>1?"feitos":"feito"} ${state.showDone?"":"escondido"+(feitos.length>1?"s":"")}</span><button type="button" class="linkbtn" id="tg-done">${state.showDone?"Esconder":"Mostrar"}</button></div>`:"");
+  bindChecks(el);
+  if($("tg-done"))$("tg-done").onclick=()=>{state.showDone=!state.showDone;renderSoon()};
+  el.querySelectorAll(".go[data-d]").forEach(b=>b.onclick=()=>goDay(b.dataset.d));
 }
 function renderFilters(){
   const el=$("filters");
@@ -651,7 +674,7 @@ function setOnly(c){
 function renderFocus(){
   const el=$("focus"),c=state.only;
   if(!c){el.hidden=true;el.removeAttribute("style");return}
-  const C=COURSES[c],up=allEvents().filter(e=>e.c===c&&days(e.d)>=0&&!e.gone);
+  const C=COURSES[c],up=allEvents().filter(e=>e.c===c&&days(e.d)>=0&&!e.gone&&!done[key(e)]);
   const n=k=>up.filter(e=>k.includes(e.k)).length;
   const nx=up.find(e=>e.k==="prova"||e.k==="teste"||e.k==="entrega"||e.k==="apres");
   el.setAttribute("style",`--cc:var(--c-${c})`);
@@ -679,9 +702,24 @@ function evHTML(e){
    <label class="chk" title="${done[k]?"Feito":"Marcar como feito"}"><input type="checkbox" data-k="${esc(k)}" ${done[k]?"checked":""}><span class="sr">feito</span></label></div>`;
 }
 function bindChecks(root){
-  root.querySelectorAll('input[data-k]').forEach(i=>i.onchange=()=>{const k=i.dataset.k;if(i.checked)done[k]=1;else delete done[k];saveDone();renderList();renderDay()});
+  root.querySelectorAll('input[data-k]').forEach(i=>i.onchange=()=>{
+    const row=i.closest(".ev,.soon-row"),t=i.dataset.t||(row&&row.querySelector(".title,.st")?.textContent)||"";
+    setDone(i.dataset.k,i.checked,t);
+  });
   root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openForm({id:b.dataset.edit}));
 }
+/* marcar e desmarcar como feito (com Desfazer) */
+let toastTimer=null;
+function setDone(k,on,t){
+  if(on)done[k]=1;else delete done[k];
+  saveDone();renderNext();renderSoon();renderCal();renderDay();renderList();renderFocus();
+  if(!on){hideToast();return}
+  $("toast-t").textContent=`"${short(t||"Evento")}" marcado como feito`;
+  $("toast").classList.add("show");
+  $("toast-undo").onclick=()=>{setDone(k,false);};
+  clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,6000);
+}
+function hideToast(){clearTimeout(toastTimer);$("toast").classList.remove("show")}
 function weekStart(s){const d=parse(s);const off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return d}
 function span(a,b){return a.getMonth()===b.getMonth()?`${a.getDate()} – ${b.getDate()} ${MON[b.getMonth()]}`:`${a.getDate()} ${MON[a.getMonth()]} – ${b.getDate()} ${MON[b.getMonth()]}`}
 function renderList(){
@@ -719,7 +757,7 @@ function renderCal(){
     const wd=new Date(y,m,d).getDay();
     const cls=["day",HOLIDAYS[s]?"hol":"",wd===0||wd===6?"wkd":"",n===0?"today":"",n<0?"past":"",state.sel===s?"sel":""].join(" ");
     h+=`<button class="${cls}" data-d="${s}" aria-label="${d} de ${MONL[m]}${HOLIDAYS[s]?", feriado":""}, ${list.length} eventos"><span class="num">${d}</span>
-      <span class="tags">${list.slice(0,3).map(e=>`<span class="tag ${e.k==="prova"||e.k==="teste"?"":"lite"} ${e.moved||e.novo?"moved":""}" ${cc(e.c)}>${esc(short(e.t))}</span>`).join("")}${list.length>3?`<span class="more">+${list.length-3}</span>`:""}</span>
+      <span class="tags">${list.slice(0,3).map(e=>`<span class="tag ${e.k==="prova"||e.k==="teste"?"":"lite"} ${e.moved||e.novo?"moved":""} ${done[key(e)]?"donetag":""}" ${cc(e.c)}>${esc(short(e.t))}</span>`).join("")}${list.length>3?`<span class="more">+${list.length-3}</span>`:""}</span>
       ${HOLIDAYS[s]?`<span class="holname"><span class="long">${HOLIDAYS[s]}</span><span class="short">feriado</span></span>`:""}</button>`;
   }
   for(let i=(lead+len)%7;i&&i<7;i++)h+=`<div class="day out" aria-hidden="true"></div>`;
