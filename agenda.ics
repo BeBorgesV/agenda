@@ -1,0 +1,985 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Agenda 2026.2//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Agenda 2026.2
+X-WR-TIMEZONE:America/Sao_Paulo
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:52c7d6d5e213b9659ce4@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260901T100000Z
+DTEND:20260901T120000Z
+SUMMARY:Preparação · Mecânica dos Sólidos · Preparação da G1
+DESCRIPTION:Preparação da G1\n07h–09h\nMecânica dos Sólidos (ENG4007
+ )\nhttps://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+END:VEVENT
+BEGIN:VEVENT
+UID:231e0af809a22c5f4684@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260908T100000Z
+DTEND:20260908T120000Z
+SUMMARY:Prova · Mecânica dos Sólidos · G1
+DESCRIPTION:G1\n07h–09h\nMecânica dos Sólidos (ENG4007)\nhttps://ead.p
+ uc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Mecânica dos Sólidos · G1
+TRIGGER:-P2DT22H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Mecânica dos Sólidos · G1
+TRIGGER:-PT11H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:b81747158924d8627871@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261006T100000Z
+DTEND:20261006T120000Z
+SUMMARY:Preparação · Mecânica dos Sólidos · Preparação da G2
+DESCRIPTION:Preparação da G2\n07h–09h\nMecânica dos Sólidos (ENG4007
+ )\nhttps://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+END:VEVENT
+BEGIN:VEVENT
+UID:426e427f20d1a2835bc5@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261013T100000Z
+DTEND:20261013T120000Z
+SUMMARY:Prova · Mecânica dos Sólidos · G2
+DESCRIPTION:G2\n07h–09h\nMecânica dos Sólidos (ENG4007)\nhttps://ead.p
+ uc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Mecânica dos Sólidos · G2
+TRIGGER:-P2DT22H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Mecânica dos Sólidos · G2
+TRIGGER:-PT11H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa4595a173ffff48dd17@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261110T100000Z
+DTEND:20261110T120000Z
+SUMMARY:Preparação · Mecânica dos Sólidos · Preparação da G3
+DESCRIPTION:Preparação da G3\n07h–09h\nMecânica dos Sólidos (ENG4007
+ )\nhttps://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+END:VEVENT
+BEGIN:VEVENT
+UID:e9842d911d82e8de7ddb@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261117T100000Z
+DTEND:20261117T120000Z
+SUMMARY:Prova · Mecânica dos Sólidos · G3
+DESCRIPTION:G3\n07h–09h\nMecânica dos Sólidos (ENG4007)\nhttps://ead.p
+ uc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Mecânica dos Sólidos · G3
+TRIGGER:-P2DT22H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Mecânica dos Sólidos · G3
+TRIGGER:-PT11H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:df8cd66846e057306b8e@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261201T100000Z
+DTEND:20261201T120000Z
+SUMMARY:Prova · Mecânica dos Sólidos · G4
+DESCRIPTION:G4\n07h–09h\nMecânica dos Sólidos (ENG4007)\nhttps://ead.p
+ uc-rio.br/mod/forum/discuss.php?d=120503
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120503
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Mecânica dos Sólidos · G4
+TRIGGER:-P2DT22H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Mecânica dos Sólidos · G4
+TRIGGER:-PT11H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:7c2f9d1e5c4cd0c4bc4d@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260904T200000Z
+DTEND:20260904T215000Z
+SUMMARY:Teste · ProbEst Computacional · T1
+DESCRIPTION:T1 (30% do G1)\n17h–18h50 · com computador\nProbEst Computa
+ cional (ENG4501)\nhttps://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · T1
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · T1
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · T1
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1ed2f947a629f0f87b7f@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260918T200000Z
+DTEND:20260918T215000Z
+SUMMARY:Prova · ProbEst Computacional · P1
+DESCRIPTION:P1 (70% do G1)\n17h–18h50\nProbEst Computacional (ENG4501)\n
+ https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · P1
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · P1
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · P1
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ba0192544a07802feaab@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261009T200000Z
+DTEND:20261009T215000Z
+SUMMARY:Teste · ProbEst Computacional · T2
+DESCRIPTION:T2 (30% do G2)\n17h–18h50 · com computador\nProbEst Computa
+ cional (ENG4501)\nhttps://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · T2
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · T2
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · T2
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:b47a9f31d41be4699599@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261026T200000Z
+DTEND:20261026T215000Z
+SUMMARY:Prova · ProbEst Computacional · P2
+DESCRIPTION:P2 (70% do G2)\n17h–18h50\nProbEst Computacional (ENG4501)\n
+ https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · P2
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · P2
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · P2
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:004877ea1bfd3bef4392@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261127T200000Z
+DTEND:20261127T215000Z
+SUMMARY:Teste · ProbEst Computacional · T3
+DESCRIPTION:T3 (30% do G3)\n17h–18h50 · com computador\nProbEst Computa
+ cional (ENG4501)\nhttps://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · T3
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · T3
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · T3
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:62b477dbe7ef002eb3ff@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261130T200000Z
+DTEND:20261130T215000Z
+SUMMARY:Prova · ProbEst Computacional · P3
+DESCRIPTION:P3 (70% do G3)\n17h–18h50\nProbEst Computacional (ENG4501)\n
+ https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · P3
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · P3
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · P3
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:b34f91dd805cbd3c52af@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261210T200000Z
+DTEND:20261210T215000Z
+SUMMARY:Prova · ProbEst Computacional · PF / G4
+DESCRIPTION:PF / G4 (matéria toda)\n17h–18h50\nProbEst Computacional (E
+ NG4501)\nhttps://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: ProbEst Computacional · PF / G4
+TRIGGER:-P3DT8H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: ProbEst Computacional · PF / G4
+TRIGGER:-PT21H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: ProbEst Computacional · PF / G4
+TRIGGER:-PT10H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:d7d1cbbc567bbf48b25f@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260928
+DTEND;VALUE=DATE:20260929
+SUMMARY:Entrega · Programação OO · Prazo: nomes do grupo enviados ao p
+ rofessor
+DESCRIPTION:Prazo: nomes do grupo enviados ao professor\naté o início da
+  1ª iteração · por e-mail\nProgramação OO (INF1636)\nhttps://ead.pu
+ c-rio.br/mod/resource/view.php?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: Programação OO · Prazo: nomes do grupo enviados 
+ ao professor
+TRIGGER:-P1DT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Prazo: nomes do grupo enviados ao pr
+ ofessor
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2c6d7bbcba5a358dc6ef@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260928
+DTEND;VALUE=DATE:20260929
+SUMMARY:Preparação · Programação OO · Início da 1ª iteração do t
+ rabalho
+DESCRIPTION:Início da 1ª iteração do trabalho\nModel + 8 testes JUnit\
+ nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.php
+ ?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+END:VEVENT
+BEGIN:VEVENT
+UID:a03b711915c06874395b@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261012T022900Z
+DTEND:20261012T025900Z
+SUMMARY:Entrega · Programação OO · Fim da 1ª iteração: ZIP no EAD
+DESCRIPTION:Fim da 1ª iteração: ZIP no EAD\naté 23h59 · −1\,0 por d
+ ia de atraso\nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/reso
+ urce/view.php?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: Programação OO · Fim da 1ª iteração: ZIP no E
+ AD
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Fim da 1ª iteração: ZIP no EAD
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: Programação OO · Fim da 1ª iteração: ZIP
+  no EAD
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:9becfe2816057bea0322@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261014
+DTEND;VALUE=DATE:20261015
+SUMMARY:Apresentação · Programação OO · Arguições da 1ª iteraçã
+ o
+DESCRIPTION:Arguições da 1ª iteração\ngrupo\, 10–15 min\, pelo Zoom
+ \nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.ph
+ p?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Arguições da 1ª iteração
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Arguições da 1ª iteração
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:801b3ea88ba608e5f6dd@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261019
+DTEND;VALUE=DATE:20261020
+SUMMARY:Apresentação · Programação OO · Arguições da 1ª iteraçã
+ o
+DESCRIPTION:Arguições da 1ª iteração\ngrupo\, 10–15 min\, pelo Zoom
+ \nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.ph
+ p?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Arguições da 1ª iteração
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Arguições da 1ª iteração
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:64abed836bb316e2a355@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261026T022900Z
+DTEND:20261026T025900Z
+SUMMARY:Entrega · Programação OO · Fim da 2ª iteração: ZIP no EAD
+DESCRIPTION:Fim da 2ª iteração: ZIP no EAD\naté 23h59 · −1\,0 por d
+ ia de atraso\nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/reso
+ urce/view.php?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: Programação OO · Fim da 2ª iteração: ZIP no E
+ AD
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Fim da 2ª iteração: ZIP no EAD
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: Programação OO · Fim da 2ª iteração: ZIP
+  no EAD
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:6973bb56db3688d44105@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Apresentação · Programação OO · Arguições da 2ª iteraçã
+ o
+DESCRIPTION:Arguições da 2ª iteração\ngrupo\, 10–15 min\, pelo Zoom
+ \nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.ph
+ p?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Arguições da 2ª iteração
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Arguições da 2ª iteração
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2bae1fcf72ed1e4e4997@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261109T022900Z
+DTEND:20261109T025900Z
+SUMMARY:Entrega · Programação OO · Fim da 3ª iteração: ZIP no EAD
+DESCRIPTION:Fim da 3ª iteração: ZIP no EAD\naté 23h59 · −1\,0 por d
+ ia de atraso\nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/reso
+ urce/view.php?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: Programação OO · Fim da 3ª iteração: ZIP no E
+ AD
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Fim da 3ª iteração: ZIP no EAD
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: Programação OO · Fim da 3ª iteração: ZIP
+  no EAD
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:9726d04549dc3b20e850@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+SUMMARY:Apresentação · Programação OO · Arguições da 3ª iteraçã
+ o
+DESCRIPTION:Arguições da 3ª iteração\ngrupo\, 10–15 min\, pelo Zoom
+ \nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.ph
+ p?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Arguições da 3ª iteração
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Arguições da 3ª iteração
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:e492b7bf3455f71c0434@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261116
+DTEND;VALUE=DATE:20261117
+SUMMARY:Apresentação · Programação OO · Arguições da 3ª iteraçã
+ o
+DESCRIPTION:Arguições da 3ª iteração\ngrupo\, 10–15 min\, pelo Zoom
+ \nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.ph
+ p?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Arguições da 3ª iteração
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Arguições da 3ª iteração
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:1b6c446338e9b0a27b61@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261123T022900Z
+DTEND:20261123T025900Z
+SUMMARY:Entrega · Programação OO · Entrega final: ZIP + link do vídeo
+DESCRIPTION:Entrega final: ZIP + link do vídeo (até 30 min)\naté 23h59 
+ · sem tolerância\, atraso reprova\nProgramação OO (INF1636)\nhttps://
+ ead.puc-rio.br/mod/resource/view.php?id=1442768
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442768
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: Programação OO · Entrega final: ZIP + link do v
+ ídeo
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Entrega final: ZIP + link do vídeo
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: Programação OO · Entrega final: ZIP + link 
+ do vídeo
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:39ab190675b1e517186d@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261123T122000Z
+DTEND:20261123T135000Z
+SUMMARY:Apresentação · Programação OO · Apresentações dos trabalho
+ s
+DESCRIPTION:Apresentações dos trabalhos (até 09/12)\n9h20–10h50 · L3
+ 10\nProgramação OO (INF1636)\nhttps://ead.puc-rio.br/mod/resource/view.
+ php?id=1442749
+URL:https://ead.puc-rio.br/mod/resource/view.php?id=1442749
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Programação OO · Apresentações dos trabalhos
+TRIGGER:-PT13H20M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Programação OO · Apresentações dos trabalhos
+TRIGGER:-PT2H20M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2d203d2d0e730658c9aa@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260929
+DTEND;VALUE=DATE:20260930
+SUMMARY:Aula · Redes de Comunicação · Aula de dúvidas para a P1
+DESCRIPTION:Aula de dúvidas para a P1\nhorário de aula\nRedes de Comunic
+ ação (INF1640)\nhttps://ead.puc-rio.br/mod/forum/discuss.php?d=122577
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=122577
+END:VEVENT
+BEGIN:VEVENT
+UID:6545a6f7f410569bda65@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261001T140000Z
+DTEND:20261001T150000Z
+SUMMARY:Prova · Redes de Comunicação · P1
+DESCRIPTION:P1\n11h · L154\nRedes de Comunicação (INF1640)\nhttps://ead
+ .puc-rio.br/mod/forum/discuss.php?d=120492
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120492
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Redes de Comunicação · P1
+TRIGGER:-P3DT2H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Redes de Comunicação · P1
+TRIGGER:-PT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Redes de Comunicação · P1
+TRIGGER:-PT4H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:a6e73b7a9a372f85cc55@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261126T140000Z
+DTEND:20261126T150000Z
+SUMMARY:Prova · Redes de Comunicação · P2
+DESCRIPTION:P2\n11h · L154\nRedes de Comunicação (INF1640)\nhttps://ead
+ .puc-rio.br/mod/forum/discuss.php?d=120492
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120492
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Redes de Comunicação · P2
+TRIGGER:-P3DT2H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Redes de Comunicação · P2
+TRIGGER:-PT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Redes de Comunicação · P2
+TRIGGER:-PT4H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:d7b831a5047ad0d9f0bf@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20261203T140000Z
+DTEND:20261203T150000Z
+SUMMARY:Prova · Redes de Comunicação · PF
+DESCRIPTION:PF\n11h · L154\nRedes de Comunicação (INF1640)\nhttps://ead
+ .puc-rio.br/mod/forum/discuss.php?d=120492
+URL:https://ead.puc-rio.br/mod/forum/discuss.php?d=120492
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: Redes de Comunicação · PF
+TRIGGER:-P3DT2H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: Redes de Comunicação · PF
+TRIGGER:-PT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: Redes de Comunicação · PF
+TRIGGER:-PT4H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:4443ee41ebda52a97cd8@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260831
+DTEND;VALUE=DATE:20260901
+SUMMARY:Teste · EDSS · Teste 1
+DESCRIPTION:Teste 1\nhorário de aula\nEDSS (MAT4174)\nhttps://ead.puc-rio
+ .br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 1
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 1
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 1
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:4e17f6bac3dc361a9b58@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260904T022900Z
+DTEND:20260904T025900Z
+SUMMARY:Entrega · EDSS · Envio MATLAB 04
+DESCRIPTION:Envio MATLAB 04\naté 23h59\nEDSS (MAT4174)\nhttps://ead.puc-r
+ io.br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: EDSS · Envio MATLAB 04
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Envio MATLAB 04
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: EDSS · Envio MATLAB 04
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:4ccb66f81ed74f31cae3@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260911T022900Z
+DTEND:20260911T025900Z
+SUMMARY:Entrega · EDSS · Envio MATLAB 05
+DESCRIPTION:Envio MATLAB 05\naté 23h59\nEDSS (MAT4174)\nhttps://ead.puc-r
+ io.br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: EDSS · Envio MATLAB 05
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Envio MATLAB 05
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: EDSS · Envio MATLAB 05
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2062c7e7bdec40cbfbde@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260916
+DTEND;VALUE=DATE:20260917
+SUMMARY:Teste · EDSS · Teste 2
+DESCRIPTION:Teste 2\nhorário de aula\nEDSS (MAT4174)\nhttps://ead.puc-rio
+ .br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 2
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 2
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 2
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:b5025f42a81172094fd8@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20260921
+DTEND;VALUE=DATE:20260922
+SUMMARY:Prova · EDSS · G1
+DESCRIPTION:G1\nhorário de aula\nEDSS (MAT4174)\nhttps://www.cbctc.puc-ri
+ o.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · G1
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · G1
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · G1
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:c0efdb032aa5bb6bf45f@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART:20260925T022900Z
+DTEND:20260925T025900Z
+SUMMARY:Entrega · EDSS · Envio MATLAB 06
+DESCRIPTION:Envio MATLAB 06\naté 23h59\nEDSS (MAT4174)\nhttps://ead.puc-r
+ io.br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 2 dias: EDSS · Envio MATLAB 06
+TRIGGER:-P2DT3H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Envio MATLAB 06
+TRIGGER:-PT14H29M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:faltam 3 horas: EDSS · Envio MATLAB 06
+TRIGGER:-PT2H30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:911a062cbeb53aa0b023@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261008
+SUMMARY:Teste · EDSS · Teste 3
+DESCRIPTION:Teste 3 (EDOs periódicas)\nhorário de aula\nEDSS (MAT4174)\n
+ https://ead.puc-rio.br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 3
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 3
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 3
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:7a8ddb808ac62ec59333@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261026
+DTEND;VALUE=DATE:20261027
+SUMMARY:Teste · EDSS · Teste 4
+DESCRIPTION:Teste 4\nhorário de aula\nEDSS (MAT4174)\nhttps://ead.puc-rio
+ .br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 4
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 4
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 4
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:9d4f8f90fce2880c889c@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Prova · EDSS · G2
+DESCRIPTION:G2\nhorário de aula\nEDSS (MAT4174)\nhttps://www.cbctc.puc-ri
+ o.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · G2
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · G2
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · G2
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:5b72888028dba86ca9ef@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261116
+DTEND;VALUE=DATE:20261117
+SUMMARY:Teste · EDSS · Teste 5
+DESCRIPTION:Teste 5\nhorário de aula\nEDSS (MAT4174)\nhttps://ead.puc-rio
+ .br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 5
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 5
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 5
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:d7683389e38bcd04699e@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Teste · EDSS · Teste 6
+DESCRIPTION:Teste 6\nhorário de aula\nEDSS (MAT4174)\nhttps://ead.puc-rio
+ .br/course/view.php?id=119896
+URL:https://ead.puc-rio.br/course/view.php?id=119896
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · Teste 6
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · Teste 6
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · Teste 6
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:44e4d5e2bf6bded178c2@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261202
+DTEND;VALUE=DATE:20261203
+SUMMARY:Prova · EDSS · G3
+DESCRIPTION:G3\nhorário de aula\nEDSS (MAT4174)\nhttps://www.cbctc.puc-ri
+ o.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · G3
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · G3
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · G3
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:25ce910f9edebed8af15@agenda20262
+DTSTAMP:20261005T223400Z
+DTSTART;VALUE=DATE:20261209
+DTEND;VALUE=DATE:20261210
+SUMMARY:Prova · EDSS · G4
+DESCRIPTION:G4\nhorário de aula\nEDSS (MAT4174)\nhttps://www.cbctc.puc-ri
+ o.br/Paginas/MeuCB/Provas.aspx
+URL:https://www.cbctc.puc-rio.br/Paginas/MeuCB/Provas.aspx
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:em 3 dias: EDSS · G4
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:amanhã: EDSS · G4
+TRIGGER:-PT4H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:hoje: EDSS · G4
+TRIGGER:PT7H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

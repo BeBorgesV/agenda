@@ -1,5 +1,5 @@
 // Guarda o app no celular para abrir sem internet. Ao publicar uma versão nova, troque o número abaixo.
-const VERSION = "agenda-v3";
+const VERSION = "agenda-v4";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
@@ -33,6 +33,8 @@ self.addEventListener("fetch", (e) => {
   }
   // cb.json (calendário do CB lido pelo robô): sempre da internet, nunca do cache.
   if (url.pathname.endsWith("/cb.json")) return;
+  // agenda.ics (calendário para o iPhone): sempre da internet.
+  if (url.pathname.endsWith(".ics")) return;
   if (url.origin === location.origin || isFont) {
     e.respondWith(
       caches.match(req).then((hit) => hit || fetch(req).then((res) => {

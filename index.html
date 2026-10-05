@@ -299,6 +299,14 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
 .det .flags{display:flex;flex-wrap:wrap;gap:6px}
 .det-act{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line2);padding-top:12px}
 .det-act .sp{flex:1}
+.notif p{margin:0;font-size:14px;line-height:1.5}
+.notif ol{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.notif .muted{color:var(--muted);font-size:13px}
+.sync.bell svg{color:var(--accent)}
+#notif{width:min(440px,calc(100vw - 24px));overflow:auto}
+.notif-go{display:flex;gap:8px;flex-wrap:wrap}
+.notif-go .btn{text-decoration:none}
+.notif-go .btn.primary{color:var(--on-accent)}
 .det-act .chk{width:auto;height:auto;gap:8px;border-radius:999px;padding:4px 10px 4px 6px;border:1px solid var(--line);font-size:13px;font-weight:600}
 @media (max-width:520px){
   #det{margin:auto 0 0;width:100%;max-width:100%;border-radius:18px 18px 0 0;border-bottom:0;padding-bottom:env(safe-area-inset-bottom)}
@@ -330,6 +338,7 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
           <div class="status">
             <span>Atualizado: <span class="mono" id="upd"></span></span>
             <button class="sync" id="sync" type="button" title="Verificar o calendário de provas do CB agora. No celular, puxe a página para baixo."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg><span id="sync-t">Verificando o CB…</span></button>
+            <button class="sync bell" id="bell" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span>Avisos no iPhone</span></button>
           </div>
         </div>
       </div>
@@ -397,6 +406,23 @@ dialog::backdrop{background:rgba(10,14,22,.45)}
 </div>
 
 <dialog id="det" aria-label="Detalhes do evento"><div id="det-in"></div></dialog>
+
+<dialog id="notif" aria-labelledby="notif-t"><div class="det notif" style="--cc:var(--accent)">
+  <div class="det-h"><h3 id="notif-t" tabindex="-1">Avisos no iPhone</h3><button type="button" class="xbtn" id="notif-x" aria-label="Fechar">×</button></div>
+  <p>A agenda vira um calendário no app Calendário do iPhone, com alertas. O iPhone avisa sozinho, mesmo com a agenda fechada, e o calendário se atualiza quando a agenda muda.</p>
+  <div class="notif-go"><a class="btn primary" id="notif-go" href="webcal://beborgesv.github.io/agenda/agenda.ics">Assinar no iPhone</a><a class="btn" id="notif-dl" href="agenda.ics" download>Baixar .ics</a></div>
+  <ol>
+    <li>Toque em <b>Assinar no iPhone</b> e confirme em <b>Assinar</b>.</li>
+    <li>Na tela seguinte, deixe <b>Remover Alertas</b> desligado e toque em <b>Adicionar</b>.</li>
+    <li>Se os avisos não aparecerem: Ajustes → Calendário → Contas → Calendários Assinados → Agenda 2026.2 → desligue <b>Remover Alertas</b>.</li>
+  </ol>
+  <dl>
+    <dt>Provas e testes</dt><dd>3 dias antes (9h), na véspera (20h) e no dia (7h)</dd>
+    <dt>Entregas</dt><dd>2 dias antes (20h), no dia (9h) e 3 horas antes do prazo</dd>
+    <dt>Apresentações</dt><dd>na véspera (20h) e no dia (7h)</dd>
+  </dl>
+  <p class="muted" style="margin:0">Os eventos que você cria ou edita aqui no app e a marcação de feito não vão para o calendário.</p>
+</div></dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-t"></span><button type="button" id="toast-undo">Desfazer</button></div>
 
@@ -926,6 +952,10 @@ $("prev").onclick=()=>{state.month--;renderCal()};
 $("nextm").onclick=()=>{state.month++;renderCal()};
 $("showpast").onchange=ev=>{state.past=ev.target.checked;renderList()};
 $("sync").onclick=()=>checkCB();
+{const nd=$("notif");$("bell").onclick=()=>{if(typeof nd.showModal==="function")nd.showModal();else nd.setAttribute("open","");$("notif-t").focus({preventScroll:true})};
+ const fecha=()=>{if(typeof nd.close==="function")nd.close();else nd.removeAttribute("open")};$("notif-x").onclick=fecha;nd.addEventListener("click",ev=>{if(ev.target===nd)fecha()});
+ /* "Baixar .ics" só no app publicado (no artefato o download não funciona) */
+ if(!location.hostname.endsWith("github.io"))$("notif-dl").hidden=true;}
 $("changes-ok").onclick=()=>{store.set("agenda20262-cbvisto",sigCB());renderChanges()};
 
 /* ---------- puxar a página para baixo para verificar ---------- */
